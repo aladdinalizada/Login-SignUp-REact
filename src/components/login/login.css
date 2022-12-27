@@ -13,3 +13,12 @@
   flex-direction: column;
   row-gap: 1rem;
 }
+
+.loginPage button:hover {
+  background-color: #2196f3;
+}
+
+.loginPage a {
+  text-decoration: none;
+  color: #000;
+}

@@ -2,18 +2,21 @@ import React from "react";
 import "./login.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Button, TextField } from "@mui/material";
+import { Button, Link, TextField } from "@mui/material";
+import { NavLink } from "react-router-dom";
 const LoginPage = () => {
+  // Yup validation schema
   const validationSchema = yup.object({
-    email: yup
+    username: yup
       .string("Enter your Username")
-      .email("Username a valid email")
+      .min(2, "Username should be of minimum 2 characters length")
       .required("Username is required"),
     password: yup
       .string("Enter your password")
       .min(8, "Password should be of minimum 8 characters length")
       .required("Password is required"),
   });
+  // Formik
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -24,12 +27,15 @@ const LoginPage = () => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+  // Handle login (Check if user exists in LocalStorage)
   const handleLogin = () => {
     console.log("Login", formik.values);
   };
   return (
     <div className="loginPage">
       <form onSubmit={formik.handleSubmit}>
+        <h1>Login </h1>
+
         <TextField
           fullWidth
           id="username"
@@ -55,12 +61,19 @@ const LoginPage = () => {
           color="primary"
           variant="contained"
           fullWidth
-          type="submit"
+          type="button"
           onClick={() => handleLogin()}
         >
-          Submit
+          Login
         </Button>
       </form>
+      <br />
+      <NavLink
+        to="/signup"
+        style={{ textDecoration: "none", color: "#2196f3" }}
+      >
+        I don't have a account
+      </NavLink>
     </div>
   );
 };
