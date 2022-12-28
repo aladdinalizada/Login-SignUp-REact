@@ -2,7 +2,7 @@ import React from "react";
 import "./login.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Button, Link, TextField } from "@mui/material";
+import { Alert, Button, TextField } from "@mui/material";
 import { NavLink } from "react-router-dom";
 const LoginPage = () => {
   // Yup validation schema
@@ -23,13 +23,31 @@ const LoginPage = () => {
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
+    // onSubmit: (values) => {
+    //   alert(JSON.stringify(values, null, 2));
+    // },
   });
   // Handle login (Check if user exists in LocalStorage)
   const handleLogin = () => {
-    console.log("Login", formik.values);
+    const truekey = () => {
+      <Alert severity="success">Login Successful</Alert>;
+      alert("Login Successful");
+    };
+    const falsekey = () => {
+      <Alert severity="error">Login Failed</Alert>;
+      alert("Login Failed");
+    };
+    const users = JSON.parse(localStorage.getItem("usersData"));
+    const user = users.find(
+      (user) =>
+        user.username === formik.values.username &&
+        user.password === formik.values.password
+    );
+    if (user) {
+      truekey();
+    } else {
+      falsekey();
+    }
   };
   return (
     <div className="loginPage">

@@ -44,9 +44,9 @@ const SignUpPage = () => {
       city: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
+    // onSubmit: (values) => {
+    //   alert(JSON.stringify(values, null, 2));
+    // },
   });
   // Fetch Countries
   const [countries, setCountries] = useState([]);
@@ -57,14 +57,18 @@ const SignUpPage = () => {
       setCountries(resp);
     })();
   }, []);
-  // console.log(countries);
+
   // Handle Sugn UP (Added input data  in LocalStorage)
   const handleSignUp = () => {
     console.log("SignUp", formik.values);
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push(formik.values);
+    localStorage.setItem("usersData", JSON.stringify(users));
   };
   return (
     <div id="signUpPage">
       <form>
+        <h1>Sign Up Form</h1>
         <div
           className="name_surname"
           style={{ display: "flex", columnGap: "20px" }}
