@@ -23,15 +23,17 @@ const LoginPage = () => {
       password: "",
     },
     validationSchema: validationSchema,
-    // onSubmit: (values) => {
-    //   alert(JSON.stringify(values, null, 2));
-    // },
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
   });
   // Handle login (Check if user exists in LocalStorage)
   const handleLogin = () => {
     const truekey = () => {
       <Alert severity="success">Login Successful</Alert>;
       alert("Login Successful");
+      // Redirect to home page
+      window.location.href = "/users";
     };
     const falsekey = () => {
       <Alert severity="error">Login Failed</Alert>;
